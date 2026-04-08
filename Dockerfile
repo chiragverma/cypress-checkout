@@ -1,3 +1,3 @@
-FROM cypress/included:10.1.0
+FROM cypress/included:15.13.1
 
-# add any external dependiences here, if using
+# Add any external dependencies here, if needed

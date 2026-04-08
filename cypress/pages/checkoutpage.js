@@ -1,82 +1,117 @@
-import selectors from '../support/selectors.js';
+const futureExpiry = () => `12${(new Date().getFullYear() + 10).toString().slice(-2)}`;
 
-class checkoutPage {
+export const SELECTORS = {
+  // Form fields
+  email: '#email',
+  cardNumber: '#cardNumber',
+  cardExpiry: '#cardExpiry',
+  cardCvc: '#cardCvc',
+  billingName: '#billingName',
+  // Country must be selected first; postal code input only renders after that
+  billingCountry: '#billingCountry',
+  postalCode: '#billingPostalCode',
 
-    static validateEmail() {
-      cy.get(selectors.email).should('have.attr', 'aria-invalid', 'false');
-      cy.get(selectors.email).clear().type('chirag.verma@');
-      cy.focused().blur(); // validation is hapenning on blur
-      cy.get(selectors.email).should('have.attr', 'aria-invalid', 'true');
-      cy.get(selectors.email).clear().type('chirag@gmail.com');
-      cy.focused().blur(); // validation is hapenning on blur
-      cy.get(selectors.email).should('have.attr', 'aria-invalid', 'false');
-    }
+  // Submit button states
+  submitButton: '.SubmitButton',
+  submitEnabled: '.SubmitButton--complete',
+  submitDisabled: '.SubmitButton--incomplete',
 
-    static validatecardNumber() {
-      cy.get(selectors.number).should('have.attr', 'aria-invalid', 'false');
-      cy.get(selectors.number).clear().type('1111111111111111');
-      cy.get(selectors.number).should('have.attr', 'aria-invalid', 'true');
-      cy.get(selectors.number).clear().type('4242424242424242');
-      cy.get(selectors.number).should('have.attr', 'aria-invalid', 'false');
-    }
+  // Result indicators
+  successIcon: '.SubmitButton-CheckmarkIcon--current',
 
-    static validatecardExpiry() {
-      cy.get(selectors.cardExpiry).should('have.attr', 'aria-invalid', 'false');
-      cy.get(selectors.cardExpiry).clear().type('1111');
-      cy.get(selectors.cardExpiry).should('have.attr', 'aria-invalid', 'true');
-      cy.get(selectors.cardExpiry).clear().type('1122');
-      cy.get(selectors.cardExpiry).should('have.attr', 'aria-invalid', 'false');
-    }
+  // Required-field error messages.
+  // The card fieldset id contains a dynamic list of supported networks, so use
+  // an attribute-starts-with selector instead of an exact id match.
+  requiredEmail: '#required-email-fieldset',
+  requiredCardDetails: '[id^="required-cardNumber-"]',
+  requiredBillingName: '#required-billingName-fieldset',
+};
 
-    static validatecardCvc() {
-      cy.get(selectors.cardCvc).should('have.attr', 'aria-invalid', 'false');
-      cy.get(selectors.cardCvc).clear().type('12');
-      cy.focused().blur(); // validation is hapenning on blur
-      cy.get(selectors.cardCvc).should('have.attr', 'aria-invalid', 'true');
-      cy.get(selectors.cardCvc).clear().type('123');
-      cy.focused().blur(); // validation is hapenning on blur
-      cy.get(selectors.cardCvc).should('have.attr', 'aria-invalid', 'false');
-    }
+/**
+ * Page Object for the Stripe Checkout form.
+ * Groups field-level validation actions and required-field message assertions.
+ */
+class CheckoutPage {
+  static validateEmail() {
+    cy.get(SELECTORS.email).should('have.attr', 'aria-invalid', 'false');
+    cy.get(SELECTORS.email).clear().type('invalid@');
+    cy.focused().blur();
+    cy.get(SELECTORS.email).should('have.attr', 'aria-invalid', 'true');
+    cy.get(SELECTORS.email).clear().type('test@example.com');
+    cy.focused().blur();
+    cy.get(SELECTORS.email).should('have.attr', 'aria-invalid', 'false');
+  }
 
-    static validatepostalCode() {
-      cy.get(selectors.postalCode).should('have.attr', 'aria-invalid', 'false');
-      cy.get(selectors.postalCode).clear().type('12');
-      cy.focused().blur(); // validation is hapenning on blur
-      cy.get(selectors.postalCode).should('have.attr', 'aria-invalid', 'true');
-      cy.get(selectors.postalCode).clear().type('94043');
-      cy.focused().blur(); // validation is hapenning on blur
-      cy.get(selectors.postalCode).should('have.attr', 'aria-invalid', 'false');
-    }
+  static validateCardNumber() {
+    cy.get(SELECTORS.cardNumber).should('have.attr', 'aria-invalid', 'false');
+    cy.get(SELECTORS.cardNumber).clear().type('1111111111111111');
+    cy.get(SELECTORS.cardNumber).should('have.attr', 'aria-invalid', 'true');
+    cy.get(SELECTORS.cardNumber).clear().type('4242424242424242');
+    cy.get(SELECTORS.cardNumber).should('have.attr', 'aria-invalid', 'false');
+  }
 
-    static verify_requiredMessage_all() {
-      cy.get(selectors.submit).click();
-      cy.get(selectors.requiredEmail).contains('Required')
-      cy.get(selectors.requiredCardDetails).contains('Required')
-      cy.get(selectors.requiredName).contains('Required')
-    }
+  static validateCardExpiry() {
+    cy.get(SELECTORS.cardExpiry).should('have.attr', 'aria-invalid', 'false');
+    cy.get(SELECTORS.cardExpiry).clear().type('1111');
+    cy.get(SELECTORS.cardExpiry).should('have.attr', 'aria-invalid', 'true');
+    cy.get(SELECTORS.cardExpiry).clear().type(futureExpiry());
+    cy.get(SELECTORS.cardExpiry).should('have.attr', 'aria-invalid', 'false');
+  }
 
-    static verify_requiredMessage_cardAndName() {
-      cy.get(selectors.email).type('chiragverma@gmail.com');
-      cy.get(selectors.requiredEmail).should('not.exist');
-      cy.get(selectors.requiredCardDetails).contains('Required')
-      cy.get(selectors.requiredName).contains('Required')  
-    }
+  static validateCardCvc() {
+    cy.get(SELECTORS.cardCvc).should('have.attr', 'aria-invalid', 'false');
+    cy.get(SELECTORS.cardCvc).clear().type('12');
+    cy.focused().blur();
+    cy.get(SELECTORS.cardCvc).should('have.attr', 'aria-invalid', 'true');
+    cy.get(SELECTORS.cardCvc).clear().type('123');
+    cy.focused().blur();
+    cy.get(SELECTORS.cardCvc).should('have.attr', 'aria-invalid', 'false');
+  }
 
-    static verify_requiredMessage_name() {
-      cy.get(selectors.number).type('4242424242424242');
-      cy.get(selectors.cardExpiry).type('1128')
-      cy.get(selectors.cardCvc).type('424');
-      cy.get(selectors.requiredCardDetails).should('not.exist');
-      cy.get(selectors.requiredName).contains('Required')
-    }
+  static validatePostalCode() {
+    // Postal code input only renders after a country is selected
+    cy.get(SELECTORS.billingCountry).select('US');
+    cy.get(SELECTORS.postalCode).should('have.attr', 'aria-invalid', 'false');
+    cy.get(SELECTORS.postalCode).clear().type('12');
+    cy.focused().blur();
+    cy.get(SELECTORS.postalCode).should('have.attr', 'aria-invalid', 'true');
+    cy.get(SELECTORS.postalCode).clear().type('94043');
+    cy.focused().blur();
+    cy.get(SELECTORS.postalCode).should('have.attr', 'aria-invalid', 'false');
+  }
 
-    static verify_requiredMessage_none() {
-      cy.get(selectors.name).type('Chirag Verma');
-      cy.get(selectors.requiredEmail).should('not.exist');
-      cy.get(selectors.requiredCardDetails).should('not.exist');
-      cy.get(selectors.requiredName).should('not.exist'); 
-    }
+  /** Submits an empty form; all three required-field errors should appear. */
+  static verifyRequiredFields() {
+    cy.get(SELECTORS.submitButton).click();
+    cy.get(SELECTORS.requiredEmail).should('contain.text', 'Required');
+    cy.get(SELECTORS.requiredCardDetails).should('contain.text', 'Required');
+    cy.get(SELECTORS.requiredBillingName).should('contain.text', 'Required');
+  }
 
+  /** Fills email; card and name required errors should remain. */
+  static verifyRequiredFieldsAfterEmail() {
+    cy.get(SELECTORS.email).type('test@example.com');
+    cy.get(SELECTORS.requiredEmail).should('not.exist');
+    cy.get(SELECTORS.requiredCardDetails).should('contain.text', 'Required');
+    cy.get(SELECTORS.requiredBillingName).should('contain.text', 'Required');
+  }
+
+  /** Fills card details; only the name required error should remain. */
+  static verifyRequiredFieldsAfterCard() {
+    cy.get(SELECTORS.cardNumber).type('4242424242424242');
+    cy.get(SELECTORS.cardExpiry).type(futureExpiry());
+    cy.get(SELECTORS.cardCvc).type('424');
+    cy.get(SELECTORS.requiredCardDetails).should('not.exist');
+    cy.get(SELECTORS.requiredBillingName).should('contain.text', 'Required');
+  }
+
+  /** Fills name; no required errors should remain. */
+  static verifyNoRequiredFields() {
+    cy.get(SELECTORS.billingName).type('Test User');
+    cy.get(SELECTORS.requiredEmail).should('not.exist');
+    cy.get(SELECTORS.requiredCardDetails).should('not.exist');
+    cy.get(SELECTORS.requiredBillingName).should('not.exist');
+  }
 }
 
-export default checkoutPage
+export default CheckoutPage;

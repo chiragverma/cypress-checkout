@@ -12,7 +12,7 @@ services:
   electron:
     build: .
     container_name: cypress-electron
-    command: cypress run --headed
+    command: cypress run
     volumes:
       - ./cypress:/cypress
       - ./package.json:/package.json

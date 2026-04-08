@@ -1,15 +1,15 @@
 {
-  "name": "MoonPay",
+  "name": "cypress-checkout",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Cypress E2E test suite for Stripe Checkout payment flows",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cypress run",
+    "test:open": "cypress open",
+    "test:chrome": "cypress run --browser chrome",
+    "test:headed": "cypress run --headed"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^10.0.2"
+    "cypress": "^15.13.1"
   }
 }
