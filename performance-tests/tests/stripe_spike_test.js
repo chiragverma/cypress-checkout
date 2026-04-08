@@ -1,6 +1,4 @@
 /*
- Spike Testing is a type of stress test that checks how the system performs when there are sudden and massive spikes in the number of users.
-
  Run a spike test to:
  - Determine how your system performs under sudden large spikes of traffic
  - Determine if your system will recover once the spike subsides

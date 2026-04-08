@@ -1,7 +1,4 @@
 /*
- Stress Testing is concerned with finding the limits of your system.
- The purpose of this test is to find the maximum capacity of the system in terms of users or throughput.
-
  Run a stress test to:
  - Determine how your system behaves under extreme conditions
  - Find the maximum capacity before the system breaks

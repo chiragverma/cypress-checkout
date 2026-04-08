@@ -1,7 +1,4 @@
 /*
- Soak Testing is concerned with reliability over a long period of time.
- The purpose of this test is to catch issues that only show up after extended usage such as memory leaks and resource exhaustion.
-
  Run a soak test to:
  - Verify that your system doesn't suffer from bugs or memory leaks
  - Verify that expected application restarts don't lose requests
