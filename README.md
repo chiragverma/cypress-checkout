@@ -5,17 +5,17 @@ This uses Cypress, Docker, Mocking APIs and Github actions
 Tests runs automatically on new commits and there is a also a manual workflow in the Actions as well where the tests can be triggered manually
 
 
-![alt text](https://github.com/chiragverma/cypress-checkout/blob/master/StripePage.png)
+![alt text](StripePage.png)
 
 
 # To run tests locally:
 
 ```
-git clone https://github.com/chiragverma/cypress-checkout-docker.git
+git clone https://github.com/chiragverma/cypress-checkout.git
 ```
 
 ```
-cd cypress-checkout-docker
+cd cypress-checkout
 ```
 
 ```
@@ -29,4 +29,4 @@ docker-compose up
 ```
 
 # To trigger tests manually on the CI:
-Go to https://github.com/chiragverma/cypress-checkout-docker/actions and trigger the manual workflow
+Go to https://github.com/chiragverma/cypress-checkout/actions and trigger the manual workflow
