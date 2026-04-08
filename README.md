@@ -44,5 +44,5 @@ brew install k6
 
 To run tests:
 ```
-STRIPE_SECRET_KEY=sk_test_your_key_here k6 run performance-tests/tests/stripe_load_test.js
+source .env && k6 run performance-tests/tests/stripe_load_test.js
 ```

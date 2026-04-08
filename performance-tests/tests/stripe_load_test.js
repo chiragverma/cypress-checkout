@@ -15,6 +15,7 @@
 
 import http from "k6/http";
 import { sleep } from 'k6';
+import encoding from 'k6/encoding';
 
 export let options = {
   insecureSkipTLSVerify: true,
@@ -31,14 +32,15 @@ export let options = {
 
 const BASE_URL = 'https://api.stripe.com/v1';
 const STRIPE_SECRET_KEY = __ENV.STRIPE_SECRET_KEY || 'sk_test_your_key_here';
+const BASIC_AUTH = 'Basic ' + encoding.b64encode(STRIPE_SECRET_KEY + ':');
 
 const authHeaders = {
-  headers: { 'Authorization': 'Bearer '+STRIPE_SECRET_KEY },
+  headers: { 'Authorization': BASIC_AUTH },
 };
 
 const postHeaders = {
   headers: {
-    'Authorization': 'Bearer '+STRIPE_SECRET_KEY,
+    'Authorization': BASIC_AUTH,
     'Content-Type': 'application/x-www-form-urlencoded',
   },
 };
@@ -67,17 +69,14 @@ export default () => {
     url: BASE_URL+'/payment_methods',
     body: {
       type: 'card',
-      'card[number]': '4242424242424242',
-      'card[exp_month]': 12,
-      'card[exp_year]': 2026,
-      'card[cvc]': '424',
+      'card[token]': 'tok_visa',
     },
     params: postHeaders,
   };
 
   let req4 = {
     method: 'GET',
-    url: BASE_URL+'/payment_methods?type=card',
+    url: BASE_URL+'/charges?limit=3',
     params: authHeaders,
   };
 

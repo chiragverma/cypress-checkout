@@ -32,6 +32,4 @@ jobs:
         sudo apt-get update
         sudo apt-get install k6
     - name: Run Performance Tests
-      env:
-        STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-      run: k6 run performance-tests/tests/stripe_load_test.js
+      run: k6 run -e STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }} performance-tests/tests/stripe_load_test.js
