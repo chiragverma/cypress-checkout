@@ -35,6 +35,12 @@ Go to https://github.com/chiragverma/cypress-checkout/actions and trigger the ma
 
 We are using https://api.stripe.com/v1 for tests
 
+There are 4 types of performance tests:
+- Load Testing
+- Stress Testing
+- Spike Testing
+- Soak Testing
+
 To run performance tests locally:
 
 Install K6:
@@ -45,4 +51,7 @@ brew install k6
 To run tests:
 ```
 source .env && k6 run performance-tests/tests/stripe_load_test.js
+source .env && k6 run performance-tests/tests/stripe_stress_test.js
+source .env && k6 run performance-tests/tests/stripe_spike_test.js
+source .env && k6 run performance-tests/tests/stripe_soak_test.js
 ```
