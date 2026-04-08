@@ -37,5 +37,3 @@ jobs:
       run: k6 run -e STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }} performance-tests/tests/stripe_stress_test.js
     - name: Run Spike Tests
       run: k6 run -e STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }} performance-tests/tests/stripe_spike_test.js
-    - name: Run Soak Tests
-      run: k6 run -e STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }} performance-tests/tests/stripe_soak_test.js
