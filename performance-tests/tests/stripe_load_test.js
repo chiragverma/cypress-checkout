@@ -32,57 +32,62 @@ export let options = {
 const BASE_URL = 'https://api.stripe.com/v1';
 const STRIPE_SECRET_KEY = __ENV.STRIPE_SECRET_KEY || 'sk_test_your_key_here';
 
+const authHeaders = {
+  headers: { 'Authorization': 'Bearer '+STRIPE_SECRET_KEY },
+};
+
+const postHeaders = {
+  headers: {
+    'Authorization': 'Bearer '+STRIPE_SECRET_KEY,
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+};
+
 export default () => {
 
   let req1 = {
     method: 'GET',
     url: BASE_URL+'/payment_intents?limit=5',
-    params: {
-      headers: { 'Authorization': 'Bearer '+STRIPE_SECRET_KEY },
-    },
+    params: authHeaders,
   };
 
   let req2 = {
     method: 'POST',
     url: BASE_URL+'/payment_intents',
-    body: 'amount=1940&currency=usd&payment_method_types[]=card',
-    params: {
-      headers: {
-        'Authorization': 'Bearer '+STRIPE_SECRET_KEY,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+    body: {
+      amount: 1940,
+      currency: 'usd',
+      'payment_method_types[]': 'card',
     },
+    params: postHeaders,
   };
 
   let req3 = {
     method: 'POST',
     url: BASE_URL+'/payment_methods',
-    body: 'type=card&card[number]=4242424242424242&card[exp_month]=12&card[exp_year]=2026&card[cvc]=424',
-    params: {
-      headers: {
-        'Authorization': 'Bearer '+STRIPE_SECRET_KEY,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+    body: {
+      type: 'card',
+      'card[number]': '4242424242424242',
+      'card[exp_month]': 12,
+      'card[exp_year]': 2026,
+      'card[cvc]': '424',
     },
+    params: postHeaders,
   };
 
   let req4 = {
     method: 'GET',
     url: BASE_URL+'/payment_methods?type=card',
-    params: {
-      headers: { 'Authorization': 'Bearer '+STRIPE_SECRET_KEY },
-    },
+    params: authHeaders,
   };
 
   let req5 = {
     method: 'GET',
     url: BASE_URL+'/charges?limit=5',
-    params: {
-      headers: { 'Authorization': 'Bearer '+STRIPE_SECRET_KEY },
-    },
+    params: authHeaders,
   };
 
-  let response = http.batch([req1, req2, req3, req4, req5]);
+  http.batch([req1, req2, req3, req4, req5]);
 
   sleep(1);
 };
