@@ -48,15 +48,11 @@
     "id": "cus_LqNFwYBdwaW4MM",
     "object": "customer",
     "email": "chirag.verma@hotmail.com",
-    "payment_methods": [
-
-    ],
+    "payment_methods": [],
     "phone": null
   },
   "customer_email": null,
-  "disabled_third_party_wallets": [
-
-  ],
+  "disabled_third_party_wallets": [],
   "display_consent_collection_promotions": false,
   "eid": "5f542ed6-d62c-4615-884f-1f0cb0939098",
   "enabled_third_party_wallets": [
@@ -104,9 +100,7 @@
   "konbini_confirmation_number": null,
   "line_item_group": {
     "currency": "usd",
-    "discount_amounts": [
-
-    ],
+    "discount_amounts": [],
     "line_items": [
       {
         "id": "li_1L8gPyCJR1nkic2Wkga4VFAV",
@@ -118,9 +112,7 @@
         },
         "cross_sell_from": null,
         "description": null,
-        "discount_amounts": [
-
-        ],
+        "discount_amounts": [],
         "images": [
           "https://stripe-camo.global.ssl.fastly.net/c25a949b6f1ffabee9af1a5696d7f152325bdce2d1b926456d42994c3d91ad78/68747470733a2f2f66696c65732e7374726970652e636f6d2f6c696e6b732f666c5f746573745f67625631776635726a4c64725a635858647032346d643649"
         ],
@@ -137,9 +129,7 @@
             "id": "prod_Hre53F1JTmiUH3",
             "object": "product",
             "active": true,
-            "attributes": [
-
-            ],
+            "attributes": [],
             "description": null,
             "images": [
               "https://files.stripe.com/links/fl_test_gbV1wf5rjLdrZcXXdp24md6I"
@@ -159,9 +149,7 @@
         },
         "quantity": 2,
         "subtotal": 13000,
-        "tax_amounts": [
-
-        ],
+        "tax_amounts": [],
         "total": 13000,
         "unit_amount_override": null
       },
@@ -175,9 +163,7 @@
         },
         "cross_sell_from": null,
         "description": null,
-        "discount_amounts": [
-
-        ],
+        "discount_amounts": [],
         "images": [
           "https://stripe-camo.global.ssl.fastly.net/d4d32b3216cdb09a5749e32214a8f37dbe0785affd4234c80471cebd74e8c076/68747470733a2f2f66696c65732e7374726970652e636f6d2f6c696e6b732f4d44423859574e6a64463878534559775a317044536c4978626d7470597a4a5866475a735833526c63335266596b746c4e6d5a3565564e71526d777a526e6856656e49785a455645534570543030334a377239327551"
         ],
@@ -194,9 +180,7 @@
             "id": "prod_JGeNcGCKJGFTp0",
             "object": "product",
             "active": true,
-            "attributes": [
-
-            ],
+            "attributes": [],
             "description": null,
             "images": [
               "https://files.stripe.com/links/MDB8YWNjdF8xSEYwZ1pDSlIxbmtpYzJXfGZsX3Rlc3RfYktlNmZ5eVNqRmwzRnhVenIxZEVESEpT003J7r92uQ"
@@ -216,18 +200,14 @@
         },
         "quantity": 2,
         "subtotal": 6400,
-        "tax_amounts": [
-
-        ],
+        "tax_amounts": [],
         "total": 6400,
         "unit_amount_override": null
       }
     ],
     "shipping_rate": null,
     "subtotal": 19400,
-    "tax_amounts": [
-
-    ],
+    "tax_amounts": [],
     "total": 19400
   },
   "livemode": false,
@@ -241,8 +221,7 @@
     "object": "payment_intent",
     "amount": 19400,
     "amount_details": {
-      "tip": {
-      }
+      "tip": {}
     },
     "automatic_payment_methods": null,
     "canceled_at": null,
@@ -268,8 +247,7 @@
     "status": "succeeded"
   },
   "payment_method_collection": "always",
-  "payment_method_options": {
-  },
+  "payment_method_options": {},
   "payment_method_types": [
     "card"
   ],
@@ -307,13 +285,10 @@
   "prefilled": null,
   "session_id": "cs_test_b1EDIoFgxsL8CwZBNU6LwcioBmWOE7YqDbnSHwmhNEEZmFlPFebu534Lkq",
   "setup_future_usage": null,
-  "setup_future_usage_for_payment_method_type": {
-  },
+  "setup_future_usage_for_payment_method_type": {},
   "setup_intent": null,
   "shipping_address_collection": null,
-  "shipping_options": [
-
-  ],
+  "shipping_options": [],
   "shipping_rate": null,
   "state": "succeeded",
   "submit_type": null,
