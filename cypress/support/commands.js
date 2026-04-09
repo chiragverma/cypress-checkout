@@ -19,7 +19,6 @@ Cypress.Commands.add('visitCheckout', () => {
 Cypress.Commands.add('fillCheckout', () => {
   cy.fixture('user.json').then((user) => {
     const expiryYear = (new Date().getFullYear() + 10).toString().slice(-2);
-
     cy.get(SELECTORS.email).should('be.visible').type(user.email);
     cy.get(SELECTORS.cardNumber).should('be.visible').type(user.cardNumber);
     cy.get(SELECTORS.cardExpiry).should('be.visible').type(`12${expiryYear}`);
@@ -28,7 +27,6 @@ Cypress.Commands.add('fillCheckout', () => {
     // Country must be selected before the postal code input is rendered
     cy.get(SELECTORS.billingCountry).select('US');
     cy.get(SELECTORS.postalCode).should('be.visible').type(user.postalCode);
-
     cy.get(SELECTORS.submitEnabled).should('be.visible');
     cy.get(SELECTORS.submitButton).click();
     cy.get(SELECTORS.submitButton).should('contain.text', 'Processing');

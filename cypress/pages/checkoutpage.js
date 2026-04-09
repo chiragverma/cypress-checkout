@@ -99,7 +99,7 @@ class CheckoutPage {
   /** Fills card details; only the name required error should remain. */
   static verifyRequiredFieldsAfterCard() {
     cy.get(SELECTORS.cardNumber).type('4242424242424242');
-    cy.get(SELECTORS.cardExpiry).type(futureExpiry());
+    cy.get(SELECTORS.cardExpiry).type('1128');
     cy.get(SELECTORS.cardCvc).type('424');
     cy.get(SELECTORS.requiredCardDetails).should('not.exist');
     cy.get(SELECTORS.requiredBillingName).should('contain.text', 'Required');
